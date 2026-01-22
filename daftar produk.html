@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Katalog Menu - Donque Donuts</title>
+    <link rel="icon" type="image/png" href="profil.jpg" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS Library untuk Animasi -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #462771;
+            --accent: #ff69b4;
+            --bg-soft: #fffafb;
+            --wa-green: #25D366;
+            --card-shadow: 0 10px 30px rgba(70, 39, 113, 0.08);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-soft);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23462771' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* --- Navigasi --- */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 8%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo { display: flex; align-items: center; gap: 12px; }
+        .nav-logo img { height: 45px; width: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
+        .brand-name { font-size: 1.3em; font-weight: 700; color: var(--primary); }
+
+        .nav-menu { display: flex; gap: 20px; }
+        .nav-menu a { text-decoration: none; color: var(--primary); font-weight: 600; transition: 0.3s; position: relative; font-size: 0.95em; }
+        .nav-menu a.active { color: var(--accent); }
+        .nav-menu a::after { content: ""; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--accent); transition: 0.3s; }
+        .nav-menu a:hover::after, .nav-menu a.active::after { width: 100%; }
+
+        /* --- Banner & Hero --- */
+        .main-header-banner img { width: 100%; height: auto; display: block; }
+        .hero {
+            padding: 80px 20px;
+            background: linear-gradient(rgba(70, 39, 113, 0.7), rgba(70, 39, 113, 0.7)), url('coklattiramisu.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3em; margin-bottom: 10px; font-style: italic; }
+
+        /* --- Produk Section --- */
+        .produk-section { padding: 60px 8%; max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.6em; color: var(--primary); }
+        .section-header h2::after { content: ""; display: block; width: 60px; height: 3px; background: var(--accent); margin: 10px auto; }
+
+        .subsection-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--primary);
+            margin: 60px 0 30px;
+            padding-left: 15px;
+            border-left: 5px solid var(--accent);
+        }
+
+        /* --- Grid Kartu Produk --- */
+        .produk-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .produk-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            width: 280px;
+            box-shadow: 0 10px 25px rgba(70, 39, 113, 0.04);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 182, 193, 0.15);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .produk-card:hover { 
+            transform: translateY(-12px); 
+            box-shadow: 0 20px 40px rgba(70, 39, 113, 0.1); 
+            border-color: var(--accent);
+        }
+
+        .badge {
+            position: absolute; top: 15px; left: 15px;
+            background: var(--accent); color: white;
+            padding: 5px 15px; border-radius: 50px;
+            font-size: 0.7em; font-weight: 700; z-index: 5;
+            box-shadow: 0 5px 10px rgba(255, 105, 180, 0.2);
+        }
+
+        .card-img-container { height: 200px; overflow: hidden; }
+        .card-img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s ease; }
+        .produk-card:hover .card-img-container img { transform: scale(1.1); }
+
+        .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
+        .card-body h4 { font-size: 1.1em; color: var(--primary); margin-bottom: 8px; font-weight: 700; min-height: 2.8em; display: flex; align-items: center; justify-content: center; }
+        .card-body .price { color: var(--accent); font-weight: 800; font-size: 1.3em; margin-bottom: 15px; }
+        
+        .btn-order {
+            background: linear-gradient(135deg, var(--primary), #634392);
+            color: white; padding: 12px; border-radius: 12px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: auto; border: none; cursor: pointer; transition: 0.3s; font-size: 0.85em;
+        }
+        .btn-order:hover { background: var(--accent); transform: scale(1.02); }
+
+        /* --- Info Section --- */
+        .menu-info-section { padding: 80px 8%; background: white; border-radius: 60px 60px 0 0; text-align: center; }
+        .menu-info-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 40px auto 0; }
+        .menu-column { background: var(--bg-soft); padding: 30px; border-radius: 25px; text-align: left; border: 1px solid #f0f0f0; }
+        .menu-column h3 { color: var(--accent); margin-bottom: 20px; font-family: 'Playfair Display', serif; border-bottom: 2px solid #ffb6c1; padding-bottom: 10px; }
+        .menu-column ul { list-style: none; }
+        .menu-column ul li { margin-bottom: 10px; font-size: 0.95em; display: flex; align-items: center; gap: 10px; }
+        .menu-column ul li::before { content: '•'; color: var(--accent); font-weight: bold; }
+
+        /* --- Modal --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(70, 39, 113, 0.9); backdrop-filter: blur(10px);
+            display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: white; max-width: 850px; width: 100%; display: flex; border-radius: 35px;
+            overflow: hidden; position: relative; animation: modalPop 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        @keyframes modalPop { from { opacity: 0; transform: scale(0.9) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-left { flex: 1; background: #fdfdfd; display: flex; align-items: center; justify-content: center; }
+        .modal-left img { width: 100%; height: 100%; object-fit: contain; padding: 30px; max-height: 450px; }
+        .modal-right { flex: 1.2; padding: 50px; text-align: left; display: flex; flex-direction: column; }
+        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 2.2em; cursor: pointer; color: #ddd; transition: 0.3s; }
+        .close-modal:hover { color: var(--accent); }
+
+        .btn-wa-final {
+            background: var(--wa-green); color: white; padding: 18px; border-radius: 15px;
+            font-weight: 700; text-decoration: none; display: flex; align-items: center;
+            justify-content: center; gap: 12px; margin-top: 30px; transition: 0.3s; font-size: 1.1em;
+        }
+        .btn-wa-final:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
+
+        /* --- Footer --- */
+        footer { background: var(--primary); color: white; padding: 60px 8% 40px; text-align: center; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 850px) {
+            .modal-box { flex-direction: column; max-height: 90vh; overflow-y: auto; }
+            .modal-left { height: 250px; }
+            .modal-right { padding: 30px; }
+        }
+        @media (max-width: 650px) {
+            .nav-container { padding: 12px 5%; }
+            .hero h1 { font-size: 2.2em; }
+            .produk-grid { gap: 12px; }
+            .produk-card { width: calc(50% - 6px); border-radius: 20px; }
+            .card-img-container { height: 140px; }
+            .card-body { padding: 15px 10px; }
+            .card-body h4 { font-size: 0.9em; min-height: 2.5em; }
+            .card-body .price { font-size: 1.1em; }
+            .btn-order { padding: 10px 5px; font-size: 0.75em; border-radius: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-container">
+        <div class="nav-logo">
+            <img src="profil.jpg" alt="Donque Logo">
+            <span class="brand-name">Donque Donuts</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="index.html">Beranda</a>
+            <a href="daftar produk.html" class="active">Katalog</a>
+            <a href="profil.html">Profil</a>
+        </nav>
+    </div>
+
+    <header class="main-header-banner">
+        <img src="header.png" alt="Banner Donque Donuts">
+    </header>
+
+    <section class="hero">
+        <h1 data-aos="zoom-in">Sentuhan Lembut di Setiap Donat</h1>
+        <p data-aos="fade-up" data-aos-delay="200">Kualitas premium yang dibuat fresh setiap pagi khusus untuk Anda.</p>
+    </section>
+
+    <section class="produk-section">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Katalog Produk</h2>
+        </div>
+
+        <!-- SEKSI KUKUS (7 PRODUK LENGKAP) -->
+        <h3 class="subsection-title" data-aos="fade-right">🍩 Donat Kukus (Soft Steamed)</h3>
+        <div class="produk-grid">
+            <!-- 1. Cokelat Tiramisu (6) -->
+            <div class="produk-card" data-aos="fade-up" onclick="openOrderModal('Cokelat Tiramisu (6)', 'Rp 13.000', 'Donat kukus premium isi 6 dengan selai cokelat tiramisu melimpah. Tekstur sangat empuk dan tidak bikin enek.', 'cokat_tiramisu_coklat.jpg')">
+                <div class="card-img-container"><img src="cokat_tiramisu_coklat.jpg" alt="Donat Cokelat Tiramisu 6"></div>
+                <div class="card-body">
+                    <h4>Cokelat Tiramisu (6)</h4>
+                    <p class="price">Rp 13.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 2. Cokelat Lumer (4) -->
+            <div class="produk-card" data-aos="fade-up" data-aos-delay="100" onclick="openOrderModal('Cokelat Lumer (4)', 'Rp 10.000', 'Varian favorit isi 4 dengan lumuran cokelat cair yang legit. Pas untuk camilan sore.', 'coklat.png')">
+                <div class="card-img-container"><img src="coklat.png" alt="Donat Cokelat Lumer 4"></div>
+                <div class="card-body">
+                    <h4>Cokelat Lumer (4)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 3. Matcha Tiramisu (6) -->
+            <div class="produk-card" data-aos="fade-up" data-aos-delay="200" onclick="openOrderModal('Matcha Tiramisu (6)', 'Rp 13.000', 'Perpaduan bubuk Matcha premium dan selai Tiramisu. Rasa unik yang menenangkan.', 'coklatmatchatiramisu.png')">
+                <div class="card-img-container"><img src="coklatmatchatiramisu.png" alt="Donat Matcha Tiramisu 6"></div>
+                <div class="card-body">
+                    <h4>Matcha Tiramisu (6)</h4>
+                    <p class="price">Rp 13.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 4. Taro Tiramisu (6) -->
+            <div class="produk-card" data-aos="fade-up" onclick="openOrderModal('Taro Tiramisu (6)', 'Rp 13.000', 'Manis lembut ubi ungu dipadu selai tiramisu. Favorit anak-anak dan remaja.', 'taro_tiramisu_cokalt.png')">
+                <div class="card-img-container"><img src="taro_tiramisu_cokalt.png" alt="Donat Taro Tiramisu 6"></div>
+                <div class="card-body">
+                    <h4>Taro Tiramisu Coklat (6)</h4>
+                    <p class="price">Rp 13.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 5. Cokelat Tiramisu (4) -->
+            <div class="produk-card" data-aos="fade-up" data-aos-delay="100" onclick="openOrderModal('Cokelat Tiramisu (4)', 'Rp 10.000', 'Porsi sedang dengan rasa mewah tiramisu. Cocok untuk dinikmati berdua.', 'coklat_tiramisu.jpg')">
+                <div class="card-img-container"><img src="coklat_tiramisu.jpg" alt="Donat Cokelat Tiramisu 4"></div>
+                <div class="card-body">
+                    <h4>Cokelat Tiramisu (4)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 6. Hemat Coklat Taro -->
+            <div class="produk-card" data-aos="fade-up" data-aos-delay="200" onclick="openOrderModal('Hemat Coklat Taro', 'Rp 5.000', 'Paket ekonomis isi 2 biji. Rasa nikmat dengan harga yang sangat bersahabat.', 'coklat_taro_.jpg')">
+                <div class="card-img-container"><img src="coklat_taro_.jpg" alt="Donat Hemat Coklat Taro"></div>
+                <div class="card-body">
+                    <h4>Hemat Coklat Taro</h4>
+                    <p class="price">Rp 5.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 7. Triple Rasa Mix (6) -->
+            <div class="produk-card" data-aos="fade-up" onclick="openOrderModal('Triple Rasa Mix (6)', 'Rp 13.000', 'Kombinasi tiga rasa terbaik (Cokelat, Tiramisu, Taro) dalam satu kemasan isi 6.', 'coklat_tiramisu_taro.jpg')">
+                <div class="card-img-container"><img src="6.jpg" alt="Donat Triple Rasa Mix 6"></div>
+                <div class="card-body">
+                    <h4>Coklat Tiramisu (2)</h4>
+                    <p class="price">Rp 5.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEKSI GORENG (7 PRODUK LENGKAP) -->
+        <h3 class="subsection-title" data-aos="fade-right">🍩 Donat Goreng (Classic Krispi)</h3>
+        <div class="produk-grid">
+            <!-- 8. Bubuk Milo (3) -->
+            <div class="produk-card" data-aos="fade-up" onclick="openOrderModal('Bubuk Milo (3)', 'Rp 10.000', 'Donat goreng renyah dengan taburan bubuk Milo asli yang melimpah.', 'donat goreng coklat tabur .png')">
+                <div class="card-img-container"><img src="donat goreng coklat tabur .png" alt="Donat Bubuk Milo 3"></div>
+                <div class="card-body">
+                    <h4>Bubuk Milo (3)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 9. Cokelat Lumer Goreng (3) -->
+            <div class="produk-card" data-aos="fade-up" data-aos-delay="100" onclick="openOrderModal('Cokelat Lumer Goreng (3)', 'Rp 10.000', 'Sensasi cokelat panas yang lumer saat digigit. Favorit pecinta cokelat.', 'donat goreng lumer coklat.png')">
+                <div class="card-img-container"><img src="donat goreng lumer coklat.png" alt="Donat Cokelat Lumer Goreng 3"></div>
+                <div class="card-body">
+                    <h4>Cokelat Lumer (3)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 10. Cokelat Keju (3) -->
+            <div class="produk-card" data-aos="fade-up" data-aos-delay="200" onclick="openOrderModal('Cokelat Keju (3)', 'Rp 10.000', 'Perpaduan klasik manis cokelat dan gurih keju parut yang melimpah.', 'donat goreng coklat toping keju.png')">
+                <div class="card-img-container"><img src="donat goreng coklat toping keju.png" alt="Donat Cokelat Keju 3"></div>
+                <div class="card-body">
+                    <h4>Cokelat Keju (3)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 11. Stroberi Lumer (3) -->
+            <div class="produk-card" data-aos="fade-up" onclick="openOrderModal('Stroberi Lumer (3)', 'Rp 10.000', 'Isian selai stroberi yang segar di dalam donat goreng yang hangat.', 'donat goreng lumer strawberry.png')">
+                <div class="card-img-container"><img src="donat goreng lumer strawberry.png" alt="Donat Stroberi Lumer 3"></div>
+                <div class="card-body">
+                    <h4>Stroberi Lumer (3)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 12. Tiramisu Meses (3) -->
+            <div class="produk-card" data-aos="fade-up" data-aos-delay="100" onclick="openOrderModal('Tiramisu Meses (3)', 'Rp 10.000', 'Donat goreng dengan topping tiramisu dan taburan meses warna-warni yang ceria.', 'donat goreng lumer tiramisu toping warna warni.png')">
+                <div class="card-img-container"><img src="donat goreng lumer tiramisu toping warna warni.png" alt="Donat Tiramisu Meses 3"></div>
+                <div class="card-body">
+                    <h4>Tiramisu Meses (3)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 13. Tiramisu Lumer (3) -->
+            <div class="produk-card" data-aos="fade-up" data-aos-delay="200" onclick="openOrderModal('Tiramisu Lumer (3)', 'Rp 10.000', 'Cita rasa kopi tiramisu yang kental dan lumer di mulut.', 'donat goreng lumer tiramisu.png')">
+                <div class="card-img-container"><img src="donat goreng lumer tiramisu.png" alt="Donat Tiramisu Lumer 3"></div>
+                <div class="card-body">
+                    <h4>Tiramisu Lumer (3)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+            <!-- 14. Bubuk Cokelat Klasik (3) -->
+            <div class="produk-card" data-aos="fade-up" onclick="openOrderModal('Bubuk Cokelat Klasik (3)', 'Rp 10.000', 'Donat goreng tradisional dengan taburan bubuk cokelat manis yang menggoda.', 'donat goreng tabur coklat.png')">
+                <div class="card-img-container"><img src="donat goreng tabur coklat.png" alt="Donat Bubuk Cokelat Klasik 3"></div>
+                <div class="card-body">
+                    <h4>Bubuk Cokelat Klasik (3)</h4>
+                    <p class="price">Rp 10.000</p>
+                    <button class="btn-order">Detail & Pesan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-info-section" data-aos="fade-up">
+        <h2>Informasi Tambahan</h2>
+        <div class="menu-info-content">
+            <div class="menu-column">
+                <h3>🍩 Varian Topping</h3>
+                <ul>
+                    <li>Lumer: Cokelat, Tiramisu, Matcha, Taro, Strawberry</li>
+                    <li>Bubuk: Gula Halus, Milo, Cokelat Bubuk, Oreo</li>
+                    <li>Taburan: Keju Parut, Meses, Kacang Sangrai</li>
+                </ul>
+            </div>
+            <div class="menu-column">
+                <h3>💸 Paket Harga</h3>
+                <ul>
+                    <li>Kotak Isi 6 (Kukus): Rp 13.000</li>
+                    <li>Kotak Isi 4 (Kukus): Rp 10.000</li>
+                    <li>Kotak Isi 2 (Kukus): Rp 5.000</li>
+                    <li>Donat Goreng Isi 3: Rp 10.000</li>
+                </ul>
+                <p style="color: var(--accent); font-weight: 700; margin-top: 15px;">✅ Gratis Ongkir Purworejo Kota</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL DETAIL PRODUK -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <div class="modal-left">
+                <img id="mImg" src="" alt="Detail Produk">
+            </div>
+            <div class="modal-right">
+                <span class="close-modal" onclick="closeOrderModal()">&times;</span>
+                <h2 id="mTitle" style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 2em;"></h2>
+                <p id="mPrice" style="color: var(--accent); font-weight: 800; font-size: 1.8em; margin: 15px 0;"></p>
+                <div style="background: #fff9fb; padding: 25px; border-radius: 20px; border-left: 6px solid var(--accent);">
+                    <p id="mDesc" style="font-size: 1em; color: #555;"></p>
+                    <p style="font-size: 0.85em; color: var(--accent); margin-top: 15px; font-weight: 600;">*Custom topping sesukamu!</p>
+                </div>
+                <a id="finalWaBtn" href="#" target="_blank" class="btn-wa-final">
+                    <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>📍 JL. Mayjen Sutoyo, Suronegaran, Purworejo | &copy; 2025 Donque Donuts</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inisialisasi Library Animasi
+        AOS.init({ duration: 1000, once: true });
+
+        // Fungsi Membuka Modal Pemesanan
+        function openOrderModal(title, price, desc, img) {
+            document.getElementById('mTitle').innerText = title;
+            document.getElementById('mPrice').innerText = price;
+            document.getElementById('mDesc').innerText = desc;
+            document.getElementById('mImg').src = img;
+
+            const waNumber = "62882005629033";
+            const orderFormat = `Halo Donque Donuts, saya mau pesan:\n\n*${title}*\nHarga: ${price}\n\nNama Pemesan: \nAlamat Lengkap: \nJumlah Pesanan: \n\nTerima kasih!`;
+            
+            document.getElementById('finalWaBtn').href = `https://wa.me/${waNumber}?text=${encodeURIComponent(orderFormat)}`;
+            document.getElementById('orderModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        // Fungsi Menutup Modal
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Tutup modal jika user mengklik area di luar kotak putih
+        window.onclick = (e) => {
+            if (e.target == document.getElementById('orderModal')) closeOrderModal();
+        }
+    </script>
+</body>
+</html>

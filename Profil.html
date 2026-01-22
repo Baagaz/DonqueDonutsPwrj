@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Profil Kami - Donque Donuts Purworejo</title>
+    <link rel="icon" type="image/png" href="profil.jpg" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS Library untuk Animasi -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #462771;
+            --accent: #ff69b4;
+            --bg-soft: #fffafb;
+            --card-shadow: 0 15px 35px rgba(70, 39, 113, 0.08);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-soft);
+            color: #333;
+            line-height: 1.8;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23462771' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* --- Navigasi --- */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 8%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo { display: flex; align-items: center; gap: 12px; }
+        .nav-logo img { height: 45px; width: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
+        .brand-name { font-size: 1.3em; font-weight: 700; color: var(--primary); }
+
+        .nav-menu { display: flex; gap: 20px; }
+        .nav-menu a { text-decoration: none; color: var(--primary); font-weight: 600; transition: 0.3s; position: relative; font-size: 0.95em; }
+        .nav-menu a.active { color: var(--accent); }
+        .nav-menu a::after { content: ""; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--accent); transition: 0.3s; }
+        .nav-menu a:hover::after, .nav-menu a.active::after { width: 100%; }
+
+        /* --- Header Banner --- */
+        .main-header-banner img { width: 100%; height: auto; display: block; }
+
+        /* --- Hero Profil --- */
+        .hero {
+            height: 40vh;
+            background: linear-gradient(rgba(70, 39, 113, 0.7), rgba(70, 39, 113, 0.7)), url('coklattiramisu.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.8em; font-style: italic; margin-bottom: 10px; }
+        .hero p { font-size: 1.1em; max-width: 650px; opacity: 0.95; font-weight: 400; }
+
+        /* --- Seksi Cerita --- */
+        .story-section { padding: 80px 8%; max-width: 1200px; margin: 0 auto; }
+        
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .story-image {
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        .story-image img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+
+        .story-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .story-text p { margin-bottom: 15px; color: #555; text-align: justify; }
+        .story-text span.highlight { color: var(--primary); font-weight: 700; }
+
+        /* --- Keunggulan --- */
+        .values-section {
+            padding: 60px 8%;
+            background: white;
+            text-align: center;
+            border-radius: 50px 50px 0 0;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .value-card {
+            padding: 35px 25px;
+            border-radius: 20px;
+            background: var(--bg-soft);
+            border: 1px solid #f0f0f0;
+            transition: var(--transition);
+        }
+        .value-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: var(--card-shadow); }
+        .value-card i { font-size: 2.2em; color: var(--accent); margin-bottom: 15px; }
+        .value-card h3 { font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 10px; }
+        .value-card p { font-size: 0.9em; color: #666; }
+
+        /* --- Lokasi --- */
+        .location-section { padding: 80px 8%; text-align: center; }
+        .map-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 6px solid white;
+            height: 400px;
+        }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 8% 30px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .footer-col h4 { font-family: 'Playfair Display', serif; margin-bottom: 20px; color: var(--accent); }
+        .footer-col p { font-size: 0.9em; opacity: 0.8; margin-bottom: 8px; }
+        
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a {
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; transition: 0.3s;
+        }
+        .social-icons a:hover { background: var(--accent); transform: translateY(-5px); }
+
+        @media (max-width: 992px) {
+            .story-grid { grid-template-columns: 1fr; text-align: center; }
+            .story-image { max-width: 400px; margin: 0 auto; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-container { padding: 12px 5%; flex-direction: column; gap: 8px; }
+            .hero { height: 30vh; }
+            .hero h1 { font-size: 2em; }
+            .hero p { font-size: 0.9em; }
+            .story-section { padding: 40px 5%; }
+            .map-container { height: 280px; }
+            .footer-grid { text-align: center; justify-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi -->
+    <div class="nav-container">
+        <div class="nav-logo">
+            <img src="profil.jpg" alt="Donque Donuts Logo">
+            <span class="brand-name">Donque Donuts</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="daftar produk.html">Daftar Produk</a>
+            <a href="profil.html" class="active">Profil</a>
+        </nav>
+    </div>
+
+    <!-- Banner -->
+    <header class="main-header-banner">
+        <img src="header.png" alt="Donque Donuts Banner">
+    </header>
+
+    <!-- Hero Profil -->
+    <section class="hero">
+        <h1 data-aos="zoom-in">Mengenal Donque Donuts</h1>
+        <p data-aos="fade-up" data-aos-delay="200">Menghadirkan kelembutan donat kukus premium langsung dari dapur kami ke meja Anda.</p>
+    </section>
+
+    <!-- Seksi Cerita -->
+    <section class="story-section">
+        <div class="story-grid">
+            <div class="story-image" data-aos="fade-right">
+                <img src="gambar kerja praktik.png" alt="Proses Produksi Donque">
+            </div>
+            <div class="story-text" data-aos="fade-left">
+                <h2>Perjalanan Kami di Purworejo</h2>
+                <p>Didirikan pada tahun <span class="highlight">2023</span>, Donque Donuts bermula dari keinginan sederhana: menciptakan donat yang benar-benar lembut, tidak berminyak, dan aman dikonsumsi oleh seluruh anggota keluarga.</p>
+                <p>Kami memilih fokus pada <span class="highlight">Teknik Kukus (Steam)</span> karena mampu menghasilkan tekstur yang jauh lebih empuk, ringan, dan tetap segar dalam waktu yang lebih lama. Hal ini menjadikan produk kami berbeda dari donat goreng konvensional pada umumnya.</p>
+                <p>Setiap butir donat diolah secara <span class="highlight">Handcrafted</span> setiap harinya. Kami berkomitmen hanya menggunakan bahan baku harian yang berkualitas tanpa tambahan zat pengawet. Sebagai bagian dari UMKM lokal Purworejo, kepuasan Anda terhadap rasa dan kualitas adalah prioritas utama kami.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan (Value Proposition) -->
+    <section class="values-section">
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--primary);" data-aos="fade-up">Mengapa Memilih Kami?</h2>
+        <div class="values-grid">
+            <div class="value-card" data-aos="fade-up">
+                <i class="fas fa-check-circle"></i>
+                <h3>Kualitas Terjamin</h3>
+                <p>Kami menyeleksi bahan baku premium secara ketat untuk menjaga standar rasa yang konsisten.</p>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-heart"></i>
+                <h3>Bebas Pengawet</h3>
+                <p>Semua produk kami dibuat secara alami, menjadikannya pilihan camilan yang sehat bagi keluarga.</p>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-clock"></i>
+                <h3>Selalu Segar</h3>
+                <p>Donat dibuat segar (freshly made) setiap pagi untuk menjamin keempukan maksimal saat sampai di tangan Anda.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lokasi -->
+    <section class="location-section">
+        <h2 data-aos="fade-up" style="font-family: 'Playfair Display', serif; color: var(--primary);">Lokasi Gerai Kami</h2>
+        <div class="map-container" data-aos="zoom-in">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d894.4881662467436!2d110.01295056953687!3d-7.7081977705324105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwNDInMjkuNSJTIDExMMKwMDAnNDguOSJF!5e1!3m2!1sid!2sid!4v1753502743660!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <p style="color: #666;"><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> JL. Mayjen Sutoyo, Suronegaran, Purworejo (Area Kota)</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Donque Donuts</h4>
+                <p>Pusat donat kukus lembut dan donat goreng krispi di Purworejo.</p>
+                <div class="social-icons">
+                    <a href="https://instagram.com/donque.donutspwr" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@donque.donuts" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://wa.me/62882005629033" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Informasi Bisnis</h4>
+                <p>Buka: Setiap Hari</p>
+                <p>Pukul: 10.00 WIB - Habis</p>
+                <p style="margin-top: 15px; color: var(--accent); font-weight: 700;">Menerima Pesanan Partai Besar</p>
+            </div>
+            <div class="footer-col">
+                <h4>Hubungi Kami</h4>
+                <p><i class="fas fa-phone"></i> +62 882-0056-29033</p>
+                <p><i class="fas fa-envelope"></i> admin@donquedonuts.id</p>
+            </div>
+        </div>
+        <p style="text-align: center; opacity: 0.5; font-size: 0.8em; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px;">
+            &copy; 2025 Donque Donuts. Handcrafted UMKM Website.
+        </p>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+</body>
+</html>
